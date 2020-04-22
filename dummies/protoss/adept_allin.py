@@ -36,7 +36,6 @@ class AdeptRush(KnowledgeBot):
         return BuildOrder([
             Step(None, ChronoUnitProduction(UnitTypeId.PROBE, UnitTypeId.NEXUS),
                  skip=RequiredUnitExists(UnitTypeId.PROBE, 20, include_pending=True), skip_until=RequiredUnitExists(UnitTypeId.ASSIMILATOR, 1)),
-            ChronoTech(AbilityId.RESEARCH_BLINK, UnitTypeId.TWILIGHTCOUNCIL),
             SequentialList([
                 GridBuilding(UnitTypeId.PYLON, 1),
                 ActUnit(UnitTypeId.PROBE, UnitTypeId.NEXUS, 14),
@@ -54,7 +53,7 @@ class AdeptRush(KnowledgeBot):
                         [
                             Step(None, GridBuilding(UnitTypeId.CYBERNETICSCORE, 1), skip_until=RequiredUnitReady(UnitTypeId.GATEWAY, 1)),
                             Step(RequiredUnitReady(UnitTypeId.CYBERNETICSCORE, 1), GateUnit(UnitTypeId.ADEPT, 2, only_once=True)),
-                            ActTech(UpgradeId.WARPGATERESEARCH, UnitTypeId.CYBERNETICSCORE),
+                            ActTech(UpgradeId.WARPGATERESEARCH),
                             GateUnit(UnitTypeId.ADEPT, 100)
                         ]),
                         Step(RequiredUnitExists(UnitTypeId.CYBERNETICSCORE, 1), GridBuilding(UnitTypeId.GATEWAY, 4),
