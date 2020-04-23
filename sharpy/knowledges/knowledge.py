@@ -4,6 +4,7 @@ from configparser import ConfigParser
 from typing import Set, List, Optional, Dict, Callable
 
 import sc2
+from sharpy.knowledges.manager_holder import ManagerHolder
 from sharpy.general.zone import Zone
 from sharpy.events import UnitDestroyedEvent
 from sharpy.managers import *
@@ -91,6 +92,7 @@ class Knowledge:
             self.data_manager,
             self.memory_manager,
         ]
+        self.manager_holder = ManagerHolder(knowledge=self)
 
     # noinspection PyAttributeOutsideInit
     def pre_start(self, ai: sc2.BotAI):
@@ -205,7 +207,7 @@ class Knowledge:
     async def start(self):
         for manager in self.managers:
             await manager.start(self)
-
+        self.manager_holder.load_managers(knowledge=self)
         self.gather_point = self.base_ramp.top_center.towards(self.base_ramp.bottom_center, -4)
         start = self.base_ramp.top_center
         end = self.enemy_base_ramp.top_center
